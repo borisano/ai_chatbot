@@ -1,35 +1,48 @@
-<div class="p-4">
-  <h1 class="text-2xl font-semibold mb-4 text-gray-800">Conversations</h1>
+<div class="flex flex-col h-screen bg-gray-100">
+  <div class="flex flex-row flex-1">
+    <!-- Left panel for conversations list -->
+    <div class="w-1/4 bg-white border-r border-gray-200 p-4">
+      <h1 class="text-xl font-semibold mb-4">Conversations</h1>
+      <%= link_to "Create Conversation", new_conversation_path, class: "bg-blue-500 text-white py-2 px-4 rounded-md" %>
 
-  <div class="mb-4">
-    <!-- Add tabs for conversations and new conversation form -->
-    <nav>
-      <ul class="flex">
-        <li class="mr-6">
-          <a class="text-blue-600" href="#conversations" data-turbo-frame="conversations">Conversations</a>
-        </li>
-        <li>
-          <a class="text-green-600" href="#new_conversation" data-turbo-frame="new_conversation">New Conversation</a>
-        </li>
+      <!-- List of conversations -->
+      <ul class="mt-4 space-y-2">
+        <% current_user.conversations.each do |conversation| %>
+          <li>
+            <%= link_to conversation.title, conversation_path(conversation), data: { turbo_frame: "messages-frame" } %>
+          </li>
+        <% end %>
       </ul>
-    </nav>
-  </div>
+    </div>
 
-  <!-- Turbo Frame for the conversation list -->
-  <turbo-frame id="conversations" target="_top">
-    <!-- List of conversations will be displayed here -->
-    <div class="grid gap-4 grid-cols-3">
-      <% @conversations.each do |conversation| %>
-        <div class="bg-white p-4 rounded-lg shadow-md border border-gray-300">
-          <p class="text-lg font-semibold text-gray-800">Conversation <%= conversation.id %></p>
-          <p class="text-sm text-gray-800">Last message: <%= conversation.last_message %></p>
-        </div>
+    <!-- Right panel for messages -->
+    <div class="flex-1 bg-white p-4">
+      <!-- Messages header -->
+      <h1 class="text-xl font-semibold mb-4">Messages</h1>
+
+      <!-- Messages container -->
+      <turbo-frame id="messages-frame">
+        <!-- Messages content will be loaded here -->
+        <% if @current_conversation %>
+          <!-- Display messages -->
+          <% @current_conversation.messages.each do |message| %>
+            <div class="bg-blue-500 text-white py-2 px-4 rounded-md mb-2">
+              <%= message.content %>
+            </div>
+          <% end %>
+        <% else %>
+          <p>Select a conversation to view messages.</p>
+        <% end %>
+      </turbo-frame>
+
+      <!-- Message input form -->
+      <% if @current_conversation %>
+        <%= form_with(model: Message.new, url: messages_path, data: { turbo_frame: "messages-frame" }) do |form| %>
+          <%= form.hidden_field :conversation_id, value: @current_conversation.id %>
+          <%= form.text_area :content, placeholder: "Type your message...", class: "w-full h-20 p-2 border rounded-md resize-none" %>
+          <%= form.submit "Send", class: "bg-blue-500 text-white py-2 px-4 rounded-md mt-2" %>
+        <% end %>
       <% end %>
     </div>
-  </turbo-frame>
-
-  <!-- Turbo Frame for the new conversation form -->
-  <turbo-frame id="new_conversation" src="/conversations/new" target="_top">
-    <!-- New conversation form will be displayed here -->
-  </turbo-frame>
+  </div>
 </div>
