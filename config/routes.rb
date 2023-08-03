@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
   devise_for :users
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
 
   resources :questions, only: [:index, :create]
 
-  root "questions#index"
+
+  resources :conversations, only: [:index, :show, :new, :create]
+  resources :messages, only: [:create]
+
+  root to: 'conversations#index'
 end

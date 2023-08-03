@@ -1,0 +1,14 @@
+<!-- new.html.erb -->
+<turbo-frame id="new_conversation">
+  <!-- New conversation form will be displayed here -->
+  <%= form_with(model: @conversation, url: conversations_path, class: "js-turbo-form", data: { controller: "form", action: "turbo:submit-end->form#handleTurboFormSubmission" }) do |form| %>
+    <div class="flex">
+      <div class="flex-1 mr-2">
+        <%= form.text_field :title, class: "w-full rounded-md shadow-sm" %>
+      </div>
+      <div>
+        <%= form.submit "Create", class: "px-4 py-2 bg-blue-600 text-white rounded-md" %>
+      </div>
+    </div>
+  <% end %>
+</turbo-frame>
