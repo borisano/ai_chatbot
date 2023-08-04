@@ -18,5 +18,8 @@ module AiChatbot
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    #required in order for TurboStreams to work
+    config.action_dispatch.default_protect_from_forgery = false
   end
 end

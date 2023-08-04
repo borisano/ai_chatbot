@@ -1,0 +1,22 @@
+<!-- Messages container -->
+<div class="h-96 overflow-y-auto">
+  <% if conversation %>
+    <!-- Display messages -->
+    <% conversation.messages.each do |message| %>
+      <div class="bg-blue-500 text-white py-2 px-4 rounded-md mb-2">
+        <%= message.content %>
+      </div>
+    <% end %>
+  <% else %>
+    <p>Select a conversation to view messages.</p>
+  <% end %>
+</div>
+
+<!-- Message input form -->
+<% if conversation %>
+  <%= form_with(model: Message.new, url: messages_path, data: { turbo_frame: "messages-frame" }) do |form| %>
+    <%= form.hidden_field :conversation_id, value: conversation.id %>
+    <%= form.text_area :content, placeholder: "Type your message...", class: "w-full h-20 p-2 border rounded-md resize-none" %>
+    <%= form.submit "Send", class: "bg-blue-500 text-white py-2 px-4 rounded-md mt-2" %>
+  <% end %>
+<% end %>

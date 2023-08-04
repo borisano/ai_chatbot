@@ -27,8 +27,9 @@ class ConversationsController < ApplicationController
     @conversation = current_user.conversations.find(params[:id])
     @message = Message.new
     respond_to do |format|
-      format.html
-      format.turbo_stream { render turbo_stream: turbo_stream.replace("messages-frame", partial: "conversations/conversation", locals: { conversation: @conversation }) }
+      #format.html
+
+      format.turbo_stream { render turbo_stream: turbo_stream.replace("messages-frame", partial: "conversations/messages", locals: { conversation: @conversation }) }
     end
   end
 
