@@ -1,7 +1,7 @@
 <turbo-stream action="replace" target="messages-frame">
   <template>
-    <!-- Messages container -->
-    <div class="h-96 overflow-y-auto">
+    <!-- Messages container show.turbo_stream.erb-->
+    <div class="h-96 overflow-y-auto bmessages">
       <% if @conversation %>
         <!-- Display messages -->
         <% @conversation.messages.each do |message| %>

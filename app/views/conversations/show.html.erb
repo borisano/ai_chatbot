@@ -1,7 +1,9 @@
-<div class="p-4">
+<div class="p-4 bbbb">
   <h1 class="text-2xl font-semibold mb-4 text-gray-800">Conversation</h1>
   <div id="conversation" data-turbo-frame="messages" data-controller="conversation" data-channel="<%= @conversation.id %>" class="bg-gray-200 p-4 rounded-lg shadow-md h-60 overflow-y-scroll">
     <%= turbo_stream_from @conversation %>
-    <%= render @conversation.messages %>
+    <turbo-stream action="replace" target="messages">
+      <%= render @conversation.messages %>
+    </turbo-stream>
   </div>
 </div>

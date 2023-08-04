@@ -30,7 +30,7 @@ class ConversationsController < ApplicationController
     @message = Message.new
     respond_to do |format|
       format.html
-      format.turbo_stream# { render turbo_stream: turbo_stream.replace("messages-frame", partial: "conversations/messages", locals: { conversation: @conversation }) }
+      format.turbo_stream { render turbo_stream: turbo_stream.replace("messages-frame", partial: "conversations/messages", locals: { conversation: @conversation }) }
     end
   end
 
