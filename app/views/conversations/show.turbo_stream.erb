@@ -1,8 +1,9 @@
-<turbo-stream action="update" target="messages-frame">
+<turbo-stream action="replace" target="messages-frame">
   <template>
     <!-- Messages container -->
     <div class="h-96 overflow-y-auto">
       <% if @conversation %>
+        <!-- Display messages -->
         <% @conversation.messages.each do |message| %>
           <div class="bg-blue-500 text-white py-2 px-4 rounded-md mb-2">
             <%= message.content %>

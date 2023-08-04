@@ -21,5 +21,10 @@ module AiChatbot
 
     #required in order for TurboStreams to work
     config.action_dispatch.default_protect_from_forgery = false
+    config.action_dispatch.default_headers = {
+      'X-Frame-Options' => 'ALLOWALL'
+    }
+
+    #config.middleware.insert_after(ActionDispatch::Executor, Turbo::Streams::ActionCable)
   end
 end

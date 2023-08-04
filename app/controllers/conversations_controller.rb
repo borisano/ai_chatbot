@@ -3,6 +3,8 @@ class ConversationsController < ApplicationController
 
   def index
     @conversations = current_user.conversations
+    @new_conversation = Conversation.new
+
     respond_to do |format|
       format.html # Render the regular HTML view
       format.turbo_stream { render turbo_stream: turbo_stream.append("conversation-list", partial: "conversations/conversation_list", locals: { conversations: @conversations }) }
@@ -10,12 +12,12 @@ class ConversationsController < ApplicationController
   end
 
   def create
-    @conversation = current_user.conversations.build(conversation_params)
+    @conversation = current_user.conversations.build
 
     respond_to do |format|
       if @conversation.save
         format.html { redirect_to conversations_path, notice: 'Conversation was successfully created.' }
-        format.turbo_stream { render turbo_stream: turbo_stream.append("conversations", partial: "conversations/conversation", locals: { conversation: @conversation }) }
+        format.turbo_stream { render turbo_stream: turbo_stream.append("conversations-list", partial: "conversations/conversation", locals: { conversation: @conversation }) }
       else
         format.html { render :new, status: :unprocessable_entity }
       end
@@ -27,9 +29,8 @@ class ConversationsController < ApplicationController
     @conversation = current_user.conversations.find(params[:id])
     @message = Message.new
     respond_to do |format|
-      #format.html
-
-      format.turbo_stream { render turbo_stream: turbo_stream.replace("messages-frame", partial: "conversations/messages", locals: { conversation: @conversation }) }
+      format.html
+      format.turbo_stream# { render turbo_stream: turbo_stream.replace("messages-frame", partial: "conversations/messages", locals: { conversation: @conversation }) }
     end
   end
 
@@ -44,6 +45,6 @@ class ConversationsController < ApplicationController
   private
 
   def conversation_params
-    params.require(:conversation).permit(:user_id)
+    #params.require(:conversation).permit(:user_id)
   end
 end

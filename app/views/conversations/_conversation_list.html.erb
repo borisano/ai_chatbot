@@ -1,8 +1,5 @@
-<div class="grid gap-4 grid-cols-3">
+<ul class="mt-4 space-y-2">
   <% conversations.each do |conversation| %>
-    <div class="bg-green-200 p-4 rounded-md shadow-md">
-      <p class="text-lg font-semibold">Conversation <%= conversation.id %></p>
-      <!-- Add other conversation details as needed -->
-    </div>
+    <%= render partial: 'conversations/conversation', locals: { conversation: conversation } %>
   <% end %>
-</div>
+</ul>
