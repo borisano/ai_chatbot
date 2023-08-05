@@ -1,5 +1,6 @@
 <div class="text-left mb-2">
   <span class="bg-green-500 text-white px-4 py-2 rounded-lg inline-block max-w-xs">
+    <%= message.role == 'user' ? 'You:' : 'AI:' %>
     <%= message.content %>
   </span>
 </div>

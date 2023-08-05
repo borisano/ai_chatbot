@@ -24,6 +24,7 @@ module AiChatbot
     config.action_dispatch.default_headers = {
       'X-Frame-Options' => 'ALLOWALL'
     }
+    config.autoload_paths += Dir["#{Rails.root}/app/services/**/*.rb"]
 
     #config.middleware.insert_after(ActionDispatch::Executor, Turbo::Streams::ActionCable)
   end
