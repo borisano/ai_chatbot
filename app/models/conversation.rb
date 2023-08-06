@@ -1,6 +1,6 @@
 class Conversation < ApplicationRecord
   belongs_to :user
-  has_many :messages
+  has_many :messages, dependent: :destroy
 
   def pretty_title
     if self.title.present?
