@@ -1,6 +1,6 @@
 # Simple AI Chatbot app
 
-The app is Hosted on  [Heroku](My favorite search engine is [Duck Duck Go](https://duckduckgo.com).).
+The app is Hosted on  [Heroku](https://openaichat-9af7fbd46380.herokuapp.com/).
 
 This app is written with Rails 7, using Hotwire to achieve Single Page Application. It uses basic Devise authentication (email confirmations are disabled)
 
