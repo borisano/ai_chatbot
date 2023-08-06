@@ -1,0 +1,6 @@
+<turbo-stream action="append" target="messages-frame">
+  <template>
+    <%= render partial: 'messages/message', locals: { message: @user_message } %>
+    <%= render partial: 'messages/message', locals: { message: @ai_response } %>
+  </template>
+</turbo-stream>

@@ -1,0 +1,28 @@
+<div class="flex flex-col h-screen bg-gray-100">
+  <div class="flex flex-row flex-1">
+    <!-- Left panel for conversations list -->
+    <div class="w-1/2 bg-white border-r border-gray-200 p-4">
+      <h1 class="text-xl font-semibold mb-4">Conversations</h1>
+      <!-- Turbo Frame for new conversation form -->
+      <%= turbo_frame_tag "new-conversation-form" do %>
+        <%= render "new_conversation_form", remote: true %>
+      <% end %>
+
+      <!-- List of conversations -->
+      <turbo-frame id="conversations-list">
+        <%= render partial: "conversations/conversation_list", locals: { conversations: @conversations } %>
+      </turbo-frame>
+    </div>
+
+    <!-- Right panel for messages -->
+    <div class="w-1/2 bg-white p-4">
+      <!-- Messages header -->
+      <h1 class="text-xl font-semibold mb-4">Messages</h1>
+
+      <!-- Messages container -->
+      <turbo-frame id="messages-frame">
+        <!-- Messages content will be loaded here -->
+      </turbo-frame>
+    </div>
+  </div>
+</div>

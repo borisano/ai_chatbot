@@ -5,15 +5,88 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload", as: "style" %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+
+
+    <%= turbo_include_tags %>
+    <style>
+        /* CSS for navigation bar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #3490dc;
+            padding: 1rem;
+        }
+
+        /* Align the email to the right */
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-email {
+            margin-right: 1rem;
+            color: white;
+        }
+    </style>
   </head>
 
   <body>
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
-    </main>
+  <!-- Add the navigation bar -->
+  <nav>
+    <!-- Left section for logo or other navigation items -->
+    <div class="text-white">
+      <!-- Your logo or other navigation items can go here -->
+      <!-- Example: <%= link_to 'Home', root_path, class: 'text-white' %> -->
+    </div>
+
+    <script>
+        document.addEventListener("turbo:load", function() {
+            const logoutLinks = document.querySelectorAll("[data-turbo-confirm]");
+
+            logoutLinks.forEach(function(link) {
+                link.addEventListener("click", function(event) {
+                    const confirmationMessage = link.getAttribute("data-turbo-confirm");
+                    if (confirmationMessage && !confirm(confirmationMessage)) {
+                        event.preventDefault();
+                    }
+                });
+            });
+        });
+    </script>
+
+
+    <!-- Right section for user info and log out button -->
+    <div class="user-info">
+      <% if user_signed_in? %>
+        <div class="user-email">Logged in as <%= current_user.email %></div>
+        <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "text-white", data: { turbo_confirm: "Are you sure you want to log out?" } %>
+      <% else %>
+        <%= link_to "Log in", new_user_session_path, class: "text-white" %>
+      <% end %>
+    </div>
+  </nav>
+
+  <!-- Display Devise flash messages -->
+  <% flash.each do |name, msg| %>
+    <% if name == :notice %>
+      <div class="bg-green-300 p-2 text-green-800">
+        <%= msg %>
+      </div>
+    <% elsif name == :alert %>
+      <div class="bg-red-300 p-2 text-red-800">
+        <%= msg %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <!-- Your main content goes here -->
+  <%= yield %>
+
+  <!-- Your additional scripts and stylesheets go here -->
   </body>
 </html>

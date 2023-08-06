@@ -1,0 +1,5 @@
+<ul class="mt-4 space-y-2">
+  <% conversations.each do |conversation| %>
+    <%= render partial: 'conversations/conversation', locals: { conversation: conversation } %>
+  <% end %>
+</ul>

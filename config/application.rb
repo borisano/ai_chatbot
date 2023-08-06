@@ -18,5 +18,14 @@ module AiChatbot
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    #required in order for TurboStreams to work
+    config.action_dispatch.default_protect_from_forgery = false
+    config.action_dispatch.default_headers = {
+      'X-Frame-Options' => 'ALLOWALL'
+    }
+    config.autoload_paths += Dir["#{Rails.root}/app/services/**/*.rb"]
+
+    #config.middleware.insert_after(ActionDispatch::Executor, Turbo::Streams::ActionCable)
   end
 end
