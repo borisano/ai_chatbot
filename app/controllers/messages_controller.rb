@@ -10,7 +10,7 @@ class MessagesController < ApplicationController
     openAIClient = OpenAiClient.new
     ai_response_message = openAIClient.continue_conversation(@conversation.history)
 
-    @ai_response = @conversation.messages.build(content: ai_response_message['content'], role: ai_response_message['role'] )
+    @ai_response = @conversation.messages.build(content: ai_response_message, role: 'assistant' )
     @ai_response.save
   end
 end
