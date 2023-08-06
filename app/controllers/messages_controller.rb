@@ -4,7 +4,7 @@ class MessagesController < ApplicationController
     user_message = params[:message][:content]
 
     # Call OpenAI's API to get AI-generated response
-    response = openai_chat(user_message, @conversation.messages.pluck(:content))
+    response = openai_chat(user_message, @conversation.history)
 
     @user_message = @conversation.messages.build(content: user_message, role: 'user')
     @user_message.save
