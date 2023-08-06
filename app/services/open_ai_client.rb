@@ -23,7 +23,6 @@ class OpenAiClient
       response['choices'][0]['message']['content']
     rescue StandardError => e
       'Sorry, I am having trouble processing the request. Please try again later.'
-      nil
     end
   end
 
